@@ -11,11 +11,14 @@ describe("Todo App", () => {
     const todoInput = screen.getByPlaceholderText(/enter todo item/i);
     userEvent.type(todoInput, "Wash the dishes{enter}");
     const todoItem = screen.getByText("Wash the dishes");
+    expect(todoInput).toHaveValue("");
   });
   test("Add todo item by add todo button", () => {
     const todoInput = screen.getByPlaceholderText(/enter todo item/i);
     userEvent.type(todoInput, "Do the laundry");
     const addTodoButton = screen.getByText(/add todo/i);
+    userEvent.click(addTodoButton);
     const todoItem = screen.getByText("Do the laundry");
+    expect(todoInput).toHaveValue("");
   });
 });
