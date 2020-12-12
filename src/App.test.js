@@ -21,4 +21,14 @@ describe("Todo App", () => {
     const todoItem = screen.getByText("Do the laundry");
     expect(todoInput).toHaveValue("");
   });
+
+  test("Add todo item and check it as done", () => {
+    const todoInput = screen.getByPlaceholderText(/enter todo item/i);
+    userEvent.type(todoInput, "Wash the dishes{enter}");
+    const todoItem = screen.getByText("Wash the dishes");
+    expect(todoInput).toHaveValue("");
+    const checkbox = screen.getByTestId("check-todo");
+    userEvent.click(checkbox);
+    expect(todoItem).toHaveStyle({ textDecoration: "line-through" });
+  });
 });
