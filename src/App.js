@@ -25,7 +25,24 @@ function App() {
       />
       <button onClick={() => addTodo()}>Add Todo</button>
       {todos.map((todo) => (
-        <div key={todo.id}>{todo.title}</div>
+        <div key={todo.id}>
+          <input
+            type="checkbox"
+            data-testid="check-todo"
+            onClick={() => {
+              const newTodos = todos.map((t) => {
+                if (t.id === todo.id) {
+                  todo.done = !todo.done;
+                }
+                return t;
+              });
+              setTodos(newTodos);
+            }}
+          />
+          <span style={{ textDecoration: todo.done ? "line-through" : "" }}>
+            {todo.title}
+          </span>
+        </div>
       ))}
     </div>
   );
