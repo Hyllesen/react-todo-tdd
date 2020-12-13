@@ -31,4 +31,14 @@ describe("Todo App", () => {
     userEvent.click(checkbox);
     expect(todoItem).toHaveStyle({ textDecoration: "line-through" });
   });
+
+  test("Delete todo item", () => {
+    const todoInput = screen.getByPlaceholderText(/enter todo item/i);
+    userEvent.type(todoInput, "Wash the dishes{enter}");
+    const todoItem = screen.getByText("Wash the dishes");
+    expect(todoInput).toHaveValue("");
+    const deleteButton = screen.getByText("Delete");
+    userEvent.click(deleteButton);
+    expect(todoItem).not.toBeInTheDocument();
+  });
 });

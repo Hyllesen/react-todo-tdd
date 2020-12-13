@@ -39,6 +39,14 @@ function App() {
               setTodos(newTodos);
             }}
           />
+          <button
+            onClick={() => {
+              const filteredTodos = todos.filter((t) => t.id !== todo.id);
+              setTodos(filteredTodos);
+            }}
+          >
+            Delete
+          </button>
           <span style={{ textDecoration: todo.done ? "line-through" : "" }}>
             {todo.title}
           </span>
