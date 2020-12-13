@@ -48,6 +48,7 @@ describe("Todo App", () => {
     const todoItem = screen.getByText("Wash the dishes");
     expect(todoInput).toHaveValue("");
     const editButton = screen.getByText("Edit");
+    userEvent.click(editButton);
     const editBox = screen.getByDisplayValue("Wash the dishes");
     userEvent.clear(editBox);
     userEvent.type(editBox, "Do the laundry");
