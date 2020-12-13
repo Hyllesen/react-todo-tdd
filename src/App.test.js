@@ -41,4 +41,18 @@ describe("Todo App", () => {
     userEvent.click(deleteButton);
     expect(todoItem).not.toBeInTheDocument();
   });
+
+  test("Editing todo", () => {
+    const todoInput = screen.getByPlaceholderText(/enter todo item/i);
+    userEvent.type(todoInput, "Wash the dishes{enter}");
+    const todoItem = screen.getByText("Wash the dishes");
+    expect(todoInput).toHaveValue("");
+    const editButton = screen.getByText("Edit");
+    const editBox = screen.getByDisplayValue("Wash the dishes");
+    userEvent.clear(editBox);
+    userEvent.type(editBox, "Do the laundry");
+    const saveButton = screen.getByText("Save");
+    userEvent.click(saveButton);
+    const editedTodo = screen.getByText("Do the laundry");
+  });
 });
