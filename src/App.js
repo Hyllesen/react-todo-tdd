@@ -31,27 +31,13 @@ function App() {
             type="checkbox"
             data-testid="check-todo"
             onClick={() => {
-              const newTodos = todos.map((t) => {
-                if (t.id === todo.id) {
-                  todo.done = !todo.done;
-                }
-                return t;
-              });
-              setTodos(newTodos);
+              changeTodoDoneStatus(todo.id);
             }}
           />
           {todo.editing ? (
             <button
               onClick={() => {
-                const editedTodos = todos.map((t) => {
-                  if (t.editing) {
-                    t.title = editingTodo;
-                    setEditingTodo("");
-                    t.editing = false;
-                  }
-                  return t;
-                });
-                setTodos(editedTodos);
+                saveTodo();
               }}
             >
               Save
@@ -59,15 +45,7 @@ function App() {
           ) : (
             <button
               onClick={() => {
-                const editingTodos = todos.map((t) => {
-                  t.editing = false;
-                  if (t.id === todo.id) {
-                    t.editing = true;
-                    setEditingTodo(t.title);
-                  }
-                  return t;
-                });
-                setTodos(editingTodos);
+                setEditStatusOfTodo(todo.id);
               }}
             >
               Edit
@@ -99,6 +77,40 @@ function App() {
       ))}
     </div>
   );
+
+  function setEditStatusOfTodo(id) {
+    const editingTodos = todos.map((t) => {
+      t.editing = false;
+      if (t.id === id) {
+        t.editing = true;
+        setEditingTodo(t.title);
+      }
+      return t;
+    });
+    setTodos(editingTodos);
+  }
+
+  function saveTodo() {
+    const editedTodos = todos.map((t) => {
+      if (t.editing) {
+        t.title = editingTodo;
+        setEditingTodo("");
+        t.editing = false;
+      }
+      return t;
+    });
+    setTodos(editedTodos);
+  }
+
+  function changeTodoDoneStatus(id) {
+    const newTodos = todos.map((t) => {
+      if (t.id === id) {
+        t.done = !t.done;
+      }
+      return t;
+    });
+    setTodos(newTodos);
+  }
 }
 
 export default App;
